@@ -6,5 +6,6 @@ namespace PetShop.Domain.IRepositories
     public interface IPetRepositories
     {
         List<Pet> GetAllPets();
+        Pet Create(Pet pet);
     }
 }
