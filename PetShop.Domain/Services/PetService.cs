@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using PetShop.Core.IServices;
 using PetShop.Core.Models;
@@ -26,7 +27,7 @@ namespace PetShop.Domain.Services
             PetList = GetAllPets();
             foreach (var pet in PetList)
             {
-                if (pet.Type.Name == searchedWords.ToLower())
+                if (String.Equals(pet.Type.Name, searchedWords, StringComparison.CurrentCultureIgnoreCase))
                 {
                     searchedPets.Add(pet);
                 }

@@ -17,6 +17,14 @@ namespace PetShop.UI
 
         public void Start()
         {
+            Console.WriteLine("==========================================");
+            Console.WriteLine("|| " + StringConstants.PetShopText1 + " ||");
+            Console.WriteLine("|| " + StringConstants.PetShopText2 + " ||");
+            Console.WriteLine("|| " + StringConstants.PetShopText3 + " ||");
+            Console.WriteLine("|| " + StringConstants.PetShopText4 + " ||");
+            Console.WriteLine("|| " + StringConstants.PetShopText5 + " ||");
+            Console.WriteLine("==========================================");
+            Console.WriteLine("");
             Console.WriteLine(StringConstants.WelcomeGreeting);
             StartLoop();
         }
@@ -45,6 +53,7 @@ namespace PetShop.UI
         private void CreateNewPet()
         {
             Console.Clear();
+            
             //Name
             Console.WriteLine(StringConstants.PleaseEnterPetName);
             var petName = Console.ReadLine();
@@ -94,6 +103,12 @@ namespace PetShop.UI
                 Console.WriteLine(StringConstants.DatesCannotContainLettersText);
                 return;
             }
+            if(!DateTime.TryParse(petBirthDay, out var tempOne))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.DateWrittenWrongText);
+                return;
+            }
             //Sold Date
             Console.WriteLine(StringConstants.PleaseEnterPetSoldDate);
             var petSoldDate = Console.ReadLine();
@@ -107,6 +122,12 @@ namespace PetShop.UI
             {
                 Console.Clear();
                 Console.WriteLine(StringConstants.DatesCannotContainLettersText);
+                return;
+            }
+            if(!DateTime.TryParse(petSoldDate, out var tempTwo))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.DateWrittenWrongText);
                 return;
             }
             //Color
@@ -139,6 +160,12 @@ namespace PetShop.UI
                 Console.WriteLine(StringConstants.PricesCannotContainLettersText);
                 return;
             }
+            if(!Double.TryParse(petPrice, out var tempThree))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.NumberWrittenWrongText);
+                return;
+            }
 
             var pet = new Pet()
             {
@@ -152,7 +179,27 @@ namespace PetShop.UI
             pet = _petService.Create(pet);
             Console.Clear();
             Console.WriteLine(StringConstants.PetHasBeenCreatedText);
-            Console.WriteLine($"ID: {pet.Id}, -Name: {pet.Name}, -Type: {pet.Type.Name}, -BirthDate: {pet.BirthDate:dd-MM-yyyy}, -SoldDate: {pet.SoldDate:dd-MM-yyyy}, -Color: {pet.Color},  -Price: {pet.Price}");
+            Console.WriteLine($"{"ID:",-5}" + "| " +
+                              $"{"Name:",-20}"+ "| " +
+                              $"{"Type:",-10}"+ "| " +
+                              $"{"Birth Date:",-11}"+ "| " +
+                              $"{"Sold Date:",-11}"+ "| " +
+                              $"{"Color:",-10}"+ "| " +
+                              $"{"Price:",-10}");
+            Console.WriteLine($"{"-----",-5}" + "|-" +
+                              $"{"--------------------",-20}"+ "|-" +
+                              $"{"----------",-10}"+ "|-" +
+                              $"{"-----------",-11}"+ "|-" +
+                              $"{"-----------",-11}"+ "|-" +
+                              $"{"----------",-10}"+ "|-" +
+                              $"{"----------",-10}");
+            Console.WriteLine($"{pet.Id,-5}"+ "| " +
+                               $"{pet.Name,-20}"+ "| " +
+                               $"{pet.Type.Name,-10}"+ "| " +
+                               $"{pet.BirthDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                               $"{pet.SoldDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                               $"{pet.Color,-10}"+ "| " +
+                               $"{pet.Price,-10}");
             Console.WriteLine("");
         }
 
@@ -164,13 +211,37 @@ namespace PetShop.UI
             List<Pet> tempPetList = _petService.GetPetsByType(input);
             if (tempPetList.Count == 0)
             {
+                Console.Clear();
                 Console.WriteLine(StringConstants.SeachResultEqualsZero);
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine(StringConstants.HereIsAListOfMatchingPets);
+                Console.WriteLine("");
+                Console.WriteLine($"{"ID:",-5}" + "| " +
+                                  $"{"Name:",-20}"+ "| " +
+                                  $"{"Type:",-10}"+ "| " +
+                                  $"{"Birth Date:",-11}"+ "| " +
+                                  $"{"Sold Date:",-11}"+ "| " +
+                                  $"{"Color:",-10}"+ "| " +
+                                  $"{"Price:",-10}");
+                Console.WriteLine($"{"-----",-5}" + "|-" +
+                                  $"{"--------------------",-20}"+ "|-" +
+                                  $"{"----------",-10}"+ "|-" +
+                                  $"{"-----------",-11}"+ "|-" +
+                                  $"{"-----------",-11}"+ "|-" +
+                                  $"{"----------",-10}"+ "|-" +
+                                  $"{"----------",-10}");
                 foreach (var pet in tempPetList)
                 {
-                    Console.WriteLine(pet);
+                    Console.WriteLine($"{pet.Id,-5}"+ "| " +
+                                      $"{pet.Name,-20}"+ "| " +
+                                      $"{pet.Type.Name,-10}"+ "| " +
+                                      $"{pet.BirthDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                                      $"{pet.SoldDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                                      $"{pet.Color,-10}"+ "| " +
+                                      $"{pet.Price,-10}");
                 }
             }
         }
@@ -197,6 +268,7 @@ namespace PetShop.UI
 
         private void GetAllPets()
         {
+            Console.Clear();
             List<Pet> pets = _petService.GetAllPets();
             if (pets.Count == 0)
             {
@@ -206,10 +278,31 @@ namespace PetShop.UI
             else
             {
                 Console.WriteLine(StringConstants.HereIsAListOfAllPets);
+                Console.WriteLine("");
+                Console.WriteLine($"{"ID:",-5}" + "| " +
+                                  $"{"Name:",-20}"+ "| " +
+                                  $"{"Type:",-10}"+ "| " +
+                                  $"{"Birth Date:",-11}"+ "| " +
+                                  $"{"Sold Date:",-11}"+ "| " +
+                                  $"{"Color:",-10}"+ "| " +
+                                  $"{"Price:",-10}");
+                Console.WriteLine($"{"-----",-5}" + "|-" +
+                                  $"{"--------------------",-20}"+ "|-" +
+                                  $"{"----------",-10}"+ "|-" +
+                                  $"{"-----------",-11}"+ "|-" +
+                                  $"{"-----------",-11}"+ "|-" +
+                                  $"{"----------",-10}"+ "|-" +
+                                  $"{"----------",-10}");
+
                 foreach (var pet in pets)
                 {
-                    Console.WriteLine($"ID: {pet.Id} -Name: {pet.Name} -Type: {pet.Type.Name} -BirthDate: {pet.BirthDate:dd-MM-yyyy} -SoldDate: {pet.SoldDate:dd-MM-yyyy} -Color: {pet.Color}  -Price: {pet.Price}");
-                    Console.WriteLine("");
+                    Console.WriteLine($"{pet.Id,-5}"+ "| " +
+                                      $"{pet.Name,-20}"+ "| " +
+                                      $"{pet.Type.Name,-10}"+ "| " +
+                                      $"{pet.BirthDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                                      $"{pet.SoldDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                                      $"{pet.Color,-10}"+ "| " +
+                                      $"{pet.Price,-10}");
                 }
             }
         }
