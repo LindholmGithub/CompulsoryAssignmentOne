@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using PetShop.Core.Models;
 using PetShop.Domain.IRepositories;
@@ -9,6 +10,7 @@ namespace PetShop.Infrastructure.Data.Repositories
     public class PetShopRepository : IPetRepositories, IPetTypeRepositories
     {
         private static List<Pet> _petTable = new List<Pet>();
+        private string deletedPetName;
 
         private static int _petId = 3;
 
@@ -59,6 +61,20 @@ namespace PetShop.Infrastructure.Data.Repositories
             pet.Id = _petId++;
             _petTable.Add(pet);
             return pet;
+        }
+
+        public string Delete(int petId)
+        {
+            _petTable = GetAllPets();
+            foreach (var pet in _petTable.ToList())
+            {
+                if (petId == pet.Id)
+                {
+                    _petTable.Remove(pet);
+                    deletedPetName = pet.Name;
+                }
+            }
+            return deletedPetName;
         }
     }
 }

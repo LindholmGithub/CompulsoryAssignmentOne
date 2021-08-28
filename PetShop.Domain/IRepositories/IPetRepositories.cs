@@ -7,5 +7,6 @@ namespace PetShop.Domain.IRepositories
     {
         List<Pet> GetAllPets();
         Pet Create(Pet pet);
+        string Delete(int petId);
     }
 }

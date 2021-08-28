@@ -46,8 +46,29 @@ namespace PetShop.UI
                 {
                     CreateNewPet();
                 }
+                else if (choice == 4)
+                {
+                    DeletePet();
+                }
             }
             Console.WriteLine(StringConstants.ExitingMenuText);
+        }
+
+        private void DeletePet()
+        {
+            Console.WriteLine(StringConstants.PleaseEnterPetId);
+            var petId = Console.ReadLine();
+            int selectionId = Int32.Parse(petId);
+            if (!Int32.TryParse(petId,out int petIdInt))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.PleaseTypeANumberInTheField);
+            }
+            else
+            {
+                var deletedPetName = _petService.Delete(selectionId);
+                Console.WriteLine($"The pet {deletedPetName} with the ID {petId}, has been deleted.");
+            }
         }
 
         private void CreateNewPet()
@@ -262,6 +283,7 @@ namespace PetShop.UI
             Console.WriteLine(StringConstants.PrintPetListText);
             Console.WriteLine(StringConstants.SearchByPetTypeText);
             Console.WriteLine(StringConstants.CreateNewPetText);
+            Console.WriteLine(StringConstants.DeletePetText);
             Console.WriteLine("");
             Console.WriteLine(StringConstants.ExitConsoleText);
         }

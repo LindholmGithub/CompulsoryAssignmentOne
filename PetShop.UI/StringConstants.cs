@@ -23,6 +23,7 @@ namespace PetShop.UI
         public const string SearchPetTypeByNameText = "Please type the pet type you would like to search for:";
         public const string HereIsAListOfAllPets = "Here is a list of all pets:";
         public const string HereIsAListOfMatchingPets = "Here is a list of all pets matching the searched type:";
+        public const string PleaseEnterPetId = "Please enter the ID of the pet you want to delete:";
         public const string PleaseEnterPetName = "Please enter the pet name:";
         public const string PleaseEnterPetType = "Please enter the pet type:";
         public const string PleaseEnterPetBirthDay = "Please enter the pets birthday with - or / as separators:";
@@ -33,6 +34,7 @@ namespace PetShop.UI
         public const string ExitingMenuText = "Exiting, thanks for using the menu application";
         
         //Errors
+        public const string PleaseTypeANumberInTheField = "Please type in numbers, not letters. Returning to main menu.";
         public const string SeachResultEqualsZero = "Couldn't find a matching pet type, returning to main menu.";
         public const string PetListIsEmptyText = "Couldn't find any results, returning to main menu.";
         public const string NamesCannotContainNumbersText = "Names can't contain numbers, returning to main menu.";

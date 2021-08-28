@@ -39,5 +39,10 @@ namespace PetShop.Domain.Services
         {
             return _repo.Create(pet);
         }
+
+        public string Delete(int petId)
+        {
+            return _repo.Delete(petId);
+        }
     }
 }
