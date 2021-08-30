@@ -76,5 +76,23 @@ namespace PetShop.Infrastructure.Data.Repositories
             }
             return deletedPetName;
         }
+
+        public void UpdateName(int idToUpdate, string newPetName)
+        {
+            List<Pet> allPets = _petTable;
+            allPets.First(pet => pet.Id == idToUpdate).Name = newPetName;
+        }
+
+        public void UpdatePetType(int idToUpdate, string newPetType)
+        {
+            List<Pet> allPets = _petTable;
+            allPets.First(pet => pet.Id == idToUpdate).Type.Name = newPetType;
+        }
+
+        public void UpdatePetBirthDate(int idToUpdate, DateTime newPetBirthDate)
+        {
+            List<Pet> allPets = _petTable;
+            allPets.First(pet => pet.Id == idToUpdate).BirthDate = newPetBirthDate;
+        }
     }
 }

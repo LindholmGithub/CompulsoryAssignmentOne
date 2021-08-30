@@ -23,7 +23,7 @@ namespace PetShop.UI
         public const string SearchPetTypeByNameText = "Please type the pet type you would like to search for:";
         public const string HereIsAListOfAllPets = "Here is a list of all pets:";
         public const string HereIsAListOfMatchingPets = "Here is a list of all pets matching the searched type:";
-        public const string PleaseEnterPetId = "Please enter the ID of the pet you want to delete:";
+        public const string PleaseEnterPetId = "Please enter the ID of the pet:";
         public const string PleaseEnterPetName = "Please enter the pet name:";
         public const string PleaseEnterPetType = "Please enter the pet type:";
         public const string PleaseEnterPetBirthDay = "Please enter the pets birthday with - or / as separators:";
@@ -32,6 +32,17 @@ namespace PetShop.UI
         public const string PleaseEnterPetPrice = "Please enter the pet price:";
         public const string PetHasBeenCreatedText = "Pet with the following properties created:";
         public const string ExitingMenuText = "Exiting, thanks for using the menu application";
+        public const string PleaseSelectThePetInfoToEdit = "Please select the pet info you want to edit: ";
+        public const string PetNameHasBeenChanged = "The Selected Pet Name has been changed";
+        public const string PetTypeHasBeenChanged = "The Selected Pet Type has been changed";
+        public const string PetBirthDayHasBeenChanged = "The Selected Pet Birthday has been changed";
+        public const string PetSoldDateHasBeenChanged = "The Selected Pet Sold Date has been changed";
+        public const string PetColorHasBeenChanged = "The Selected Pet Color has been changed";
+        public const string PetPriceHasBeenChanged = "The Selected Pet Price has been changed";
+
+
+
+
         
         //Errors
         public const string PleaseTypeANumberInTheField = "Please type in numbers, not letters. Returning to main menu.";

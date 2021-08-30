@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using PetShop.Core.IServices;
 using PetShop.Core.Models;
@@ -34,6 +35,7 @@ namespace PetShop.UI
             int choice;
             while ((choice = GetMainMenuSelection()) != 0)
             {
+                
                 if (choice == 1)
                 {
                     GetAllPets();
@@ -50,8 +52,110 @@ namespace PetShop.UI
                 {
                     DeletePet();
                 }
+                else if (choice == 5)
+                {
+                    UpdatePet();
+                }
             }
             Console.WriteLine(StringConstants.ExitingMenuText);
+        }
+
+        private void UpdatePet()
+        {
+            GetAllPets();
+            Console.WriteLine("");
+            Console.WriteLine("Select a pet by entering the ID of the pet:");
+
+            var idString = Console.ReadLine();
+            int idToUpdate = 0;
+            int id;
+
+            if (int.TryParse(idString, out id))
+            {
+                idToUpdate = id;
+            }
+            Console.Clear();
+            Console.WriteLine(StringConstants.PleaseSelectThePetInfoToEdit);
+            Console.WriteLine("1. Name");
+            Console.WriteLine("2. Pet Type");
+            Console.WriteLine("3. Birthdate");
+            Console.WriteLine("4. Sold date");
+            Console.WriteLine("5. Color");
+            Console.WriteLine("6. Price");
+            Console.WriteLine("");
+            Console.WriteLine("0. Cancel");
+            Console.WriteLine("");
+            
+            int choice;
+            while ((choice = GetUpdateSelection()) != 0)
+            {
+                if (choice == 1)
+                {
+                    UpdatePetName(idToUpdate);
+                    Console.Clear();
+                    Console.WriteLine(StringConstants.PetNameHasBeenChanged); 
+                    Console.WriteLine("");
+                    break;
+                }
+                if (choice == 2)
+                {
+                    UpdatePetType(idToUpdate);
+                    Console.Clear();
+                    Console.WriteLine(StringConstants.PetTypeHasBeenChanged); 
+                    Console.WriteLine("");
+                    break;
+                }
+                if (choice == 3)
+                {
+                    UpdatePetBirthDate(idToUpdate);
+                    Console.Clear();
+                    Console.WriteLine(StringConstants.PetBirthDayHasBeenChanged);
+                    break;
+                }
+                if (choice == 4)
+                {
+                    break;
+                }
+                if (choice == 5)
+                {
+                    break;
+                }
+            }
+        }
+
+        private void UpdatePetBirthDate(int idToUpdate)
+        {
+            Console.WriteLine("Please write a new pet birth date:");
+            var newPetBirthDate = Console.ReadLine();
+            var newPetBirthDateTime = DateTime.ParseExact(newPetBirthDate, "dd-MM-yyyy", CultureInfo.InvariantCulture,
+                DateTimeStyles.None);
+            
+            _petService.UpdatePetBirthDate(idToUpdate, newPetBirthDateTime);
+        }
+
+        private void UpdatePetType(int idToUpdate)
+        {
+            Console.WriteLine("Please write a new pet type:");
+            var newPetType = Console.ReadLine();
+            _petService.UpdatePetType(idToUpdate, newPetType);
+        }
+
+        private int GetUpdateSelection()
+        {
+            var selectionString = Console.ReadLine();
+            int selection;
+            if (int.TryParse(selectionString, out selection))
+            {
+                return selection;
+            }
+            return -1;
+        }
+
+        private void UpdatePetName(int idToUpdate)
+        {
+            Console.WriteLine("Please write a new pet name:");
+            var newPetName = Console.ReadLine();
+            _petService.UpdatePetName(idToUpdate, newPetName);
         }
 
         private void DeletePet()
@@ -124,7 +228,7 @@ namespace PetShop.UI
                 Console.WriteLine(StringConstants.DatesCannotContainLettersText);
                 return;
             }
-            if(!DateTime.TryParse(petBirthDay, out var tempOne))
+            if(!DateTime.TryParseExact(petBirthDay, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempOne))
             {
                 Console.Clear();
                 Console.WriteLine(StringConstants.DateWrittenWrongText);
@@ -145,7 +249,7 @@ namespace PetShop.UI
                 Console.WriteLine(StringConstants.DatesCannotContainLettersText);
                 return;
             }
-            if(!DateTime.TryParse(petSoldDate, out var tempTwo))
+            if(!DateTime.TryParseExact(petSoldDate,"dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempTwo))
             {
                 Console.Clear();
                 Console.WriteLine(StringConstants.DateWrittenWrongText);
@@ -284,6 +388,7 @@ namespace PetShop.UI
             Console.WriteLine(StringConstants.SearchByPetTypeText);
             Console.WriteLine(StringConstants.CreateNewPetText);
             Console.WriteLine(StringConstants.DeletePetText);
+            Console.WriteLine(StringConstants.UpdatePetInfoText);
             Console.WriteLine("");
             Console.WriteLine(StringConstants.ExitConsoleText);
         }
