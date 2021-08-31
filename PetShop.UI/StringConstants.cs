@@ -3,15 +3,14 @@ namespace PetShop.UI
     public class StringConstants
     {
         //Menu Choices
-        public const string PrintPetListText = "Please Press 1 to Show All Pets.";
-        public const string SearchByPetTypeText = "Please Press 2 to Search by Pet Type.";
-        public const string CreateNewPetText = "Please Press 3 to Create a New Pet.";
-        public const string DeletePetText = "Please Press 4 to Delete a Pet.";
-        public const string UpdatePetInfoText = "Please Press 5 to Update a Specific Pets Info.";
-        public const string SortPetsByPriceText = "Please Press 6 to Sort the Petlist by Price.";
-        public const string CheapestPetsText = "Please Press 7 to see the 5 Cheapest Available Pets.";
-        public const string ExitConsoleText = "Please Press 0 to Exit the Menu.";
-
+        public const string PrintPetListText = "Press 1 to Show All Pets.";
+        public const string SearchByPetTypeText = "Press 2 to Search by Pet Type.";
+        public const string CreateNewPetText = "Press 3 to Create a New Pet.";
+        public const string DeletePetText = "Press 4 to Delete a Pet.";
+        public const string UpdatePetInfoText = "Press 5 to Update a Specific Pets Info.";
+        public const string SortPetsByPriceText = "Press 6 to Sort the Petlist by Price (High-Low).";
+        public const string CheapestPetsText = "Press 7 to Sort the Petlist by Price (Low-High).";
+        public const string ExitConsoleText = "Press 0 to Exit the Menu.";
 
         //Menu Messages
         public const string WelcomeGreeting = "Welcome to the PetShop menu, please select an option below:";
@@ -39,10 +38,6 @@ namespace PetShop.UI
         public const string PetSoldDateHasBeenChanged = "The Selected Pet Sold Date has been changed";
         public const string PetColorHasBeenChanged = "The Selected Pet Color has been changed";
         public const string PetPriceHasBeenChanged = "The Selected Pet Price has been changed";
-
-
-
-
         
         //Errors
         public const string PleaseTypeANumberInTheField = "Please type in numbers, not letters. Returning to main menu.";

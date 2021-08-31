@@ -12,7 +12,7 @@ namespace PetShop.Infrastructure.Data.Repositories
         private static List<Pet> _petTable = new List<Pet>();
         private string deletedPetName;
 
-        private static int _petId = 3;
+        private static int _petId = 6;
 
         private static List<PetType> _petTypeTable = new List<PetType>();
 
@@ -27,6 +27,21 @@ namespace PetShop.Infrastructure.Data.Repositories
             {
                 Name = "Cat",
                 Id = 2
+            };
+            PetType goat = new PetType
+            {
+                Name = "Goat",
+                Id = 3
+            };
+            PetType snake = new PetType
+            {
+                Name = "Snake",
+                Id = 4
+            };
+            PetType bird = new PetType
+            {
+                Name = "Bird",
+                Id = 5
             };
             Pet pet1 = new Pet()
             {
@@ -48,8 +63,52 @@ namespace PetShop.Infrastructure.Data.Repositories
                 Color = "Blue", 
                 Price = 50d
             };
+            Pet pet3 = new Pet()
+            {
+                Id = 3,
+                Name = "Billy",
+                Type = goat,
+                BirthDate = new DateTime(1999, 12, 02),
+                SoldDate = new DateTime(1999, 12, 28), 
+                Color = "Black", 
+                Price = 500000d
+            };
+            Pet pet4 = new Pet()
+            {
+                Id = 4,
+                Name = "Solid",
+                Type = snake,
+                BirthDate = new DateTime(2013, 05, 30),
+                SoldDate = new DateTime(2014, 06, 01), 
+                Color = "Green", 
+                Price = 10.99d
+            };
+            Pet pet5 = new Pet()
+            {
+                Id = 5,
+                Name = "Tweetie",
+                Type = bird,
+                BirthDate = new DateTime(2018, 08, 08),
+                SoldDate = new DateTime(2019, 09, 09), 
+                Color = "Yellow", 
+                Price = 888.88d
+            };
+            Pet pet6 = new Pet()
+            {
+                Id = 6,
+                Name = "Garry",
+                Type = goat,
+                BirthDate = new DateTime(2000, 07, 28),
+                SoldDate = new DateTime(2001, 07, 28), 
+                Color = "Gold", 
+                Price = 500001d
+            };
             _petTable.Add(pet1);
             _petTable.Add(pet2);
+            _petTable.Add(pet3);
+            _petTable.Add(pet4);
+            _petTable.Add(pet5);
+            _petTable.Add(pet6);
         }
         public List<Pet> GetAllPets()
         {
@@ -93,6 +152,24 @@ namespace PetShop.Infrastructure.Data.Repositories
         {
             List<Pet> allPets = _petTable;
             allPets.First(pet => pet.Id == idToUpdate).BirthDate = newPetBirthDate;
+        }
+
+        public void UpdatePetSoldDate(int idToUpdate, DateTime newPetSoldDate)
+        {
+            List<Pet> allPets = _petTable;
+            allPets.First(pet => pet.Id == idToUpdate).SoldDate = newPetSoldDate;
+        }
+
+        public void UpdatePetColor(int idToUpdate, string newPetColor)
+        {
+            List<Pet> allPets = _petTable;
+            allPets.First(pet => pet.Id == idToUpdate).Color = newPetColor;
+        }
+
+        public void UpdatePetPrice(int idToUpdate, double newPetPrice)
+        {
+            List<Pet> allPets = _petTable;
+            allPets.First(pet => pet.Id == idToUpdate).Price = newPetPrice;
         }
     }
 }

@@ -59,5 +59,20 @@ namespace PetShop.Domain.Services
         {
             _repo.UpdatePetBirthDate(idToUpdate, newPetBirthDate);
         }
+
+        public void UpdatePetSoldDate(int idToUpdate, DateTime newPetSoldDate)
+        {
+            _repo.UpdatePetSoldDate(idToUpdate, newPetSoldDate);
+        }
+
+        public void UpdatePetColor(int idToUpdate, string newPetColor)
+        {
+            _repo.UpdatePetColor(idToUpdate, newPetColor);
+        }
+
+        public void UpdatePetPrice(int idToUpdate, double newPetPrice)
+        {
+            _repo.UpdatePetPrice(idToUpdate, newPetPrice);
+        }
     }
 }

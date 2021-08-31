@@ -13,5 +13,8 @@ namespace PetShop.Core.IServices
         void UpdatePetName(int idToUpdate, string newPetName);
         void UpdatePetType(int idToUpdate, string newPetType);
         void UpdatePetBirthDate(int idToUpdate, DateTime newPetBirthDate);
+        void UpdatePetSoldDate(int idToUpdate, DateTime newPetSoldDate);
+        void UpdatePetColor(int idToUpdate, string newPetColor);
+        void UpdatePetPrice(int idToUpdate, double newPetPrice);
     }
 }
