@@ -12,7 +12,7 @@ namespace PetShop.Infrastructure.Data.Repositories
         private static List<Pet> _petTable = new List<Pet>();
         private string deletedPetName;
 
-        private static int _petId = 6;
+        private static int _petId = 7;
 
         private static List<PetType> _petTypeTable = new List<PetType>();
 
