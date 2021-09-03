@@ -21,9 +21,29 @@ namespace PetShop.WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<Pet> getAllPets()
+        public ActionResult<List<Pet>> getAllPets()
         {
-            return _petService.GetAllPets();
+            return Ok(_petService.GetAllPets());
+        }
+
+        [HttpGet("{id}")]
+        //api/Pet/id
+        //api/Pet/7
+        public ActionResult<Pet> GetById(long id)
+        {
+            return StatusCode(501, "Vi er ikke klar endnu, ring igen senere bums");
+        }
+
+        [HttpPost]
+        public ActionResult<Pet> CreatePet([FromBody]Pet pet)
+        {
+            return Created($"https://localhost/api/Pet/{pet.Id}",_petService.Create(pet));
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<string> DeletePet(int id)
+        {
+            return _petService.Delete(id);
         }
     }
 }
