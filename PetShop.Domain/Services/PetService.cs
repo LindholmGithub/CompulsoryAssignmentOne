@@ -74,5 +74,10 @@ namespace PetShop.Domain.Services
         {
             _repo.UpdatePetPrice(idToUpdate, newPetPrice);
         }
+
+        public void Update(Pet pet)
+        {
+            _repo.Update(pet);
+        }
     }
 }

@@ -139,60 +139,44 @@ namespace PetShop.UI
             GetAllPets();
             Console.WriteLine("");
             Console.WriteLine("Select a pet by entering the ID of the pet:");
+            int idToUpdate = Int32.Parse(Console.ReadLine());
 
-            var idString = Console.ReadLine();
-            int idToUpdate = 0;
-            int id;
-
-            if (int.TryParse(idString, out id))
-            {
-                idToUpdate = id;
-            }
             Console.Clear();
-            Console.WriteLine(StringConstants.PleaseSelectThePetInfoToEdit);
-            Console.WriteLine("1. Name");
-            Console.WriteLine("2. Pet Type");
-            Console.WriteLine("3. Birthdate");
-            Console.WriteLine("4. Sold date");
-            Console.WriteLine("5. Color");
-            Console.WriteLine("6. Price");
-            Console.WriteLine("");
-            Console.WriteLine("0. Cancel");
-            Console.WriteLine("");
-            int choice;
-            while ((choice = GetUpdateSelection()) != 0)
+            //Name
+            Console.WriteLine(StringConstants.PleaseEnterPetName);
+            var updatePetName = Console.ReadLine();
+
+            //Type
+            Console.WriteLine(StringConstants.PleaseEnterPetType);
+            PetType updatePetType = new PetType();
+            var petType = Console.ReadLine();
+            updatePetType.Name = petType;
+
+            //Birthday
+            Console.WriteLine(StringConstants.PleaseEnterPetBirthDay);
+            var updatePetBirthDay = Console.ReadLine();
+
+            //Sold Date
+            Console.WriteLine(StringConstants.PleaseEnterPetSoldDate);
+            var updatePetSoldDate = Console.ReadLine();
+
+            //Color
+            Console.WriteLine(StringConstants.PleaseEnterPetColor);
+            var updatePetColor = Console.ReadLine();
+
+            //Price
+            Console.WriteLine(StringConstants.PleaseEnterPetPrice);
+            var updatePetPrice = Console.ReadLine();
+
+            var pet = new Pet()
             {
-                if (choice == 1)
-                {
-                    UpdatePetName(idToUpdate);
-                    break;
-                }
-                if (choice == 2)
-                {
-                    UpdatePetType(idToUpdate);
-                    break;
-                }
-                if (choice == 3)
-                {
-                    UpdatePetBirthDate(idToUpdate);
-                    break;
-                }
-                if (choice == 4)
-                {
-                    UpdatePetSoldDate(idToUpdate);
-                    break;
-                }
-                if (choice == 5)
-                {
-                    UpdatePetColor(idToUpdate);
-                    break;
-                }
-                if (choice == 6)
-                {
-                    UpdatePetPrice(idToUpdate);
-                    break;
-                }
-            }
+                Id = idToUpdate,
+                Name = updatePetName,
+                Type = updatePetType,
+
+            };
+            _petService.Update(pet);
+
         }
 
         private void UpdatePetName(int idToUpdate)

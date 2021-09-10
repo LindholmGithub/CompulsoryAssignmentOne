@@ -171,5 +171,15 @@ namespace PetShop.Infrastructure.Data.Repositories
             List<Pet> allPets = _petTable;
             allPets.First(pet => pet.Id == idToUpdate).Price = newPetPrice;
         }
+
+        public void Update(Pet pet)
+        {
+            var petToUpdate = _petTable.FirstOrDefault(p => p.Id == pet.Id);
+            if (petToUpdate != null)
+            {
+                petToUpdate.Name = pet.Name;
+                petToUpdate.Type = pet.Type;
+            }
+        }
     }
 }
