@@ -20,12 +20,12 @@ namespace PetShop.Infrastructure.Data.Repositories
             Owner owner2 = new Owner()
             {
                 Id = 2,
-                Name = "Bob"
+                Name = "Cruella"
             };
             Owner owner3 = new Owner()
             {
                 Id = 3,
-                Name = "Bob"
+                Name = "Rollo, fra Rollo og King"
             };
             Create(owner1);
             Create(owner2);
