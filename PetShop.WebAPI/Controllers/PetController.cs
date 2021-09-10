@@ -45,5 +45,21 @@ namespace PetShop.WebAPI.Controllers
         {
             return _petService.Delete(id);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<Pet> PutPet(int id, [FromBody] Pet pet)
+        {
+            if (id != pet.Id)
+            {
+                return BadRequest("Id in param must be the same as in object.");
+            }
+            _petService.UpdatePetName(pet.Id, pet.Name);
+            _petService.UpdatePetType(pet.Id, pet.Type.Name);
+            _petService.UpdatePetBirthDate(pet.Id, pet.BirthDate);
+            _petService.UpdatePetSoldDate(pet.Id, pet.SoldDate);
+            _petService.UpdatePetColor(pet.Id, pet.Color);
+            _petService.UpdatePetPrice(pet.Id, pet.Price);
+            return Ok();
+        }
     }
 }
