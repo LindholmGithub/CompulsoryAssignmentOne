@@ -52,13 +52,16 @@ namespace PetShop.WebAPI.Controllers
             {
                 return BadRequest("Id in param must be the same as in object.");
             }
-            _petService.UpdatePetName(pet.Id, pet.Name);
-            _petService.UpdatePetType(pet.Id, pet.Type.Name);
-            _petService.UpdatePetBirthDate(pet.Id, pet.BirthDate);
-            _petService.UpdatePetSoldDate(pet.Id, pet.SoldDate);
-            _petService.UpdatePetColor(pet.Id, pet.Color);
-            _petService.UpdatePetPrice(pet.Id, pet.Price);
-            return Ok();
+            return Ok(_petService.Update(new Pet()
+            {
+                Id = id,
+                Name = pet.Name,
+                Type = pet.Type,
+                BirthDate = pet.BirthDate,
+                SoldDate = pet.SoldDate,
+                Color = pet.Color,
+                Price = pet.Price,
+            }));
         }
     }
 }

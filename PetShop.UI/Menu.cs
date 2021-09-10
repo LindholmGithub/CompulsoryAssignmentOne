@@ -70,25 +70,13 @@ namespace PetShop.UI
 
         private void SortPetsCheapest()
         {
+            //▼
             List<Pet> pets = _petService.GetAllPets();
             List<Pet> expensivePets = pets.OrderBy(pet => pet.Price).ToList();
             Console.Clear();
             Console.WriteLine("Here is a list of Pets Sorted by Price (Low-High):");
             Console.WriteLine("");
-            Console.WriteLine($"{"ID:",-5}" + "| " +
-                              $"{"Name:",-20}"+ "| " +
-                              $"{"Type:",-10}"+ "| " +
-                              $"{"Birth Date:",-11}"+ "| " +
-                              $"{"Sold Date:",-11}"+ "| " +
-                              $"{"Color:",-10}"+ "| " +
-                              $"{"Price: ▼",-10}");
-            Console.WriteLine($"{"-----",-5}" + "|-" +
-                              $"{"--------------------",-20}"+ "|-" +
-                              $"{"----------",-10}"+ "|-" +
-                              $"{"-----------",-11}"+ "|-" +
-                              $"{"-----------",-11}"+ "|-" +
-                              $"{"----------",-10}"+ "|-" +
-                              $"{"----------",-10}");
+            PrintBeautifulTable();
             foreach (var pet in expensivePets)
             {
                 Console.WriteLine($"{pet.Id,-5}"+ "| " +
@@ -103,25 +91,13 @@ namespace PetShop.UI
 
         private void SortPetsExpensive()
         {
+            //▲
             List<Pet> pets = _petService.GetAllPets();
             List<Pet> expensivePets = pets.OrderByDescending(pet => pet.Price).ToList();
             Console.Clear();
             Console.WriteLine("Here is a list of Pets Sorted by Price (High-Low):");
             Console.WriteLine("");
-            Console.WriteLine($"{"ID:",-5}" + "| " +
-                              $"{"Name:",-20}"+ "| " +
-                              $"{"Type:",-10}"+ "| " +
-                              $"{"Birth Date:",-11}"+ "| " +
-                              $"{"Sold Date:",-11}"+ "| " +
-                              $"{"Color:",-10}"+ "| " +
-                              $"{"Price: ▲",-10}");
-            Console.WriteLine($"{"-----",-5}" + "|-" +
-                              $"{"--------------------",-20}"+ "|-" +
-                              $"{"----------",-10}"+ "|-" +
-                              $"{"-----------",-11}"+ "|-" +
-                              $"{"-----------",-11}"+ "|-" +
-                              $"{"----------",-10}"+ "|-" +
-                              $"{"----------",-10}");
+            PrintBeautifulTable();
             foreach (var pet in expensivePets)
             {
                 Console.WriteLine($"{pet.Id,-5}"+ "| " +
@@ -140,201 +116,139 @@ namespace PetShop.UI
             Console.WriteLine("");
             Console.WriteLine("Select a pet by entering the ID of the pet:");
             int idToUpdate = Int32.Parse(Console.ReadLine());
-
             Console.Clear();
+            
             //Name
             Console.WriteLine(StringConstants.PleaseEnterPetName);
             var updatePetName = Console.ReadLine();
-
+            if (String.IsNullOrEmpty(updatePetName))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ValueCannotBeNullText);
+                return;
+            }
+            if (updatePetName.Any(char.IsDigit))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.NamesCannotContainNumbersText);
+                return;
+            }
             //Type
             Console.WriteLine(StringConstants.PleaseEnterPetType);
             PetType updatePetType = new PetType();
             var petType = Console.ReadLine();
             updatePetType.Name = petType;
+            if (String.IsNullOrEmpty(petType))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ValueCannotBeNullText);
+                return;
+            }
+            if (petType.Any(char.IsDigit))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.TypesCannotContainNumbersText);
+                return;
+            }
 
             //Birthday
             Console.WriteLine(StringConstants.PleaseEnterPetBirthDay);
             var updatePetBirthDay = Console.ReadLine();
+            if (String.IsNullOrEmpty(updatePetBirthDay))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ValueCannotBeNullText);
+                return;
+            }
+            if (updatePetBirthDay.Any(char.IsLetter))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.DatesCannotContainLettersText);
+                return;
+            }
+            if(!DateTime.TryParseExact(updatePetBirthDay, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempOne))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.DateWrittenWrongText);
+                return;
+            }
 
             //Sold Date
             Console.WriteLine(StringConstants.PleaseEnterPetSoldDate);
             var updatePetSoldDate = Console.ReadLine();
+            if (String.IsNullOrEmpty(updatePetSoldDate))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ValueCannotBeNullText);
+                return;
+            }
+            if (updatePetSoldDate.Any(char.IsLetter))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.DatesCannotContainLettersText);
+                return;
+            }
+            if(!DateTime.TryParseExact(updatePetSoldDate, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempTwo))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.DateWrittenWrongText);
+                return;
+            }
 
             //Color
             Console.WriteLine(StringConstants.PleaseEnterPetColor);
             var updatePetColor = Console.ReadLine();
+            if (String.IsNullOrEmpty(updatePetColor))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ValueCannotBeNullText);
+                return;
+            }
+            if (updatePetColor.Any(char.IsDigit))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ColorsCannotContainNumbersText);
+                return;
+            }
 
             //Price
             Console.WriteLine(StringConstants.PleaseEnterPetPrice);
             var updatePetPrice = Console.ReadLine();
+            if (String.IsNullOrEmpty(updatePetPrice))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.ValueCannotBeNullText);
+                return;
+            }
+            if (updatePetPrice.Any(char.IsLetter))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.PricesCannotContainLettersText);
+                return;
+            }
+            if(!Double.TryParse(updatePetPrice, out var tempThree))
+            {
+                Console.Clear();
+                Console.WriteLine(StringConstants.NumberWrittenWrongText);
+                return;
+            }
 
             var pet = new Pet()
             {
                 Id = idToUpdate,
                 Name = updatePetName,
                 Type = updatePetType,
+                BirthDate = DateTime.Parse(updatePetBirthDay),
+                SoldDate = DateTime.Parse(updatePetSoldDate),
+                Color = updatePetColor,
+                Price = Double.Parse(updatePetPrice)
 
             };
             _petService.Update(pet);
-
-        }
-
-        private void UpdatePetName(int idToUpdate)
-        {
-            Console.WriteLine("Please write a new pet name:");
-            var newPetName = Console.ReadLine();
-            if (String.IsNullOrEmpty(newPetName))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ValueCannotBeNullText);
-                return;
-            }
-            if (newPetName.Any(char.IsDigit))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.NamesCannotContainNumbersText);
-                return;
-            }
-            _petService.UpdatePetName(idToUpdate, newPetName);
             Console.Clear();
-            Console.WriteLine(StringConstants.PetNameHasBeenChanged); 
-            Console.WriteLine("");
+            Console.WriteLine(StringConstants.PetInfoHasBeenUpdated);
         }
-        private void UpdatePetType(int idToUpdate)
-        {
-            Console.WriteLine("Please write a new pet type:");
-            var newPetType = Console.ReadLine();
-            if (String.IsNullOrEmpty(newPetType))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ValueCannotBeNullText);
-                return;
-            }
-            if (newPetType.Any(char.IsDigit))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.TypesCannotContainNumbersText);
-                return;
-            }
-            _petService.UpdatePetType(idToUpdate, newPetType);
-            Console.Clear();
-            Console.WriteLine(StringConstants.PetTypeHasBeenChanged); 
-            Console.WriteLine("");
-        }
-        private void UpdatePetBirthDate(int idToUpdate)
-        {
-            Console.WriteLine("Please write a new pet birth date:");
-            var newPetBirthDate = Console.ReadLine();
-            if (String.IsNullOrEmpty(newPetBirthDate))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ValueCannotBeNullText);
-                return;
-            }
-            if (newPetBirthDate.Any(char.IsLetter))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.DatesCannotContainLettersText);
-                return;
-            }
-            if(!DateTime.TryParseExact(newPetBirthDate, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var temp))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.DateWrittenWrongText);
-                return;
-            }
-            _petService.UpdatePetBirthDate(idToUpdate, Convert.ToDateTime(newPetBirthDate));
-            Console.Clear();
-            Console.WriteLine(StringConstants.PetBirthDayHasBeenChanged);
-            Console.WriteLine("");
-        }
-        private void UpdatePetSoldDate(int idToUpdate)
-        {
-            Console.WriteLine("Please write a new pet sold date:");
-            var newPetSoldDate = Console.ReadLine();
-            if (String.IsNullOrEmpty(newPetSoldDate))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ValueCannotBeNullText);
-                return;
-            }
-            if (newPetSoldDate.Any(char.IsLetter))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.DatesCannotContainLettersText);
-                return;
-            }
-            if(!DateTime.TryParseExact(newPetSoldDate,"dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempTwo))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.DateWrittenWrongText);
-                return;
-            }
-            _petService.UpdatePetSoldDate(idToUpdate, Convert.ToDateTime(newPetSoldDate));
-            Console.Clear();
-            Console.WriteLine(StringConstants.PetSoldDateHasBeenChanged);
-            Console.WriteLine("");
-            
-        }
-        private void UpdatePetColor(int idToUpdate)
-        {
-            Console.WriteLine("Please write a new pet color:");
-            var newPetColor = Console.ReadLine();
-            if (String.IsNullOrEmpty(newPetColor))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ValueCannotBeNullText);
-                return;
-            }
-            if (newPetColor.Any(char.IsDigit))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ColorsCannotContainNumbersText);
-                return;
-            }
-            _petService.UpdatePetColor(idToUpdate, newPetColor);
-            Console.Clear();
-            Console.WriteLine(StringConstants.PetColorHasBeenChanged);
-            Console.WriteLine("");
-            
-        }
-        private void UpdatePetPrice(int idToUpdate)
-        {
-            Console.WriteLine("Please write a new pet price:");
-            var newPetPrice = Console.ReadLine();
-            if (String.IsNullOrEmpty(newPetPrice))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.ValueCannotBeNullText);
-                return;
-            }
-            if (newPetPrice.Any(char.IsLetter))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.PricesCannotContainLettersText);
-                return;
-            }
-            if(!Double.TryParse(newPetPrice, out var tempThree))
-            {
-                Console.Clear();
-                Console.WriteLine(StringConstants.NumberWrittenWrongText);
-                return;
-            }
-            _petService.UpdatePetPrice(idToUpdate, Convert.ToDouble(newPetPrice));
-            Console.Clear();
-            Console.WriteLine(StringConstants.PetPriceHasBeenChanged);
-            Console.WriteLine("");
-        }
-        private int GetUpdateSelection()
-        {
-            var selectionString = Console.ReadLine();
-            int selection;
-            if (int.TryParse(selectionString, out selection))
-            {
-                return selection;
-            }
-            return -1;
-        }
+        
         
         private void DeletePet()
         {
@@ -479,9 +393,22 @@ namespace PetShop.UI
                 Color = petColor,
                 Price = Convert.ToDouble(petPrice)
             };
-            pet = _petService.Create(pet);
+            _petService.Create(pet);
             Console.Clear();
             Console.WriteLine(StringConstants.PetHasBeenCreatedText);
+            PrintBeautifulTable();
+            Console.WriteLine($"{pet.Id,-5}"+ "| " +
+                              $"{pet.Name,-20}"+ "| " +
+                              $"{pet.Type.Name,-10}"+ "| " +
+                              $"{pet.BirthDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                              $"{pet.SoldDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
+                              $"{pet.Color,-10}"+ "| " +
+                              $"{pet.Price,-10}");
+            Console.WriteLine("");
+        }
+
+        private void PrintBeautifulTable()
+        {
             Console.WriteLine($"{"ID:",-5}" + "| " +
                               $"{"Name:",-20}"+ "| " +
                               $"{"Type:",-10}"+ "| " +
@@ -496,14 +423,6 @@ namespace PetShop.UI
                               $"{"-----------",-11}"+ "|-" +
                               $"{"----------",-10}"+ "|-" +
                               $"{"----------",-10}");
-            Console.WriteLine($"{pet.Id,-5}"+ "| " +
-                               $"{pet.Name,-20}"+ "| " +
-                               $"{pet.Type.Name,-10}"+ "| " +
-                               $"{pet.BirthDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
-                               $"{pet.SoldDate.ToString("dd-MM-yyyy"),-11}"+ "| " +
-                               $"{pet.Color,-10}"+ "| " +
-                               $"{pet.Price,-10}");
-            Console.WriteLine("");
         }
 
         private void SearchByPetType()
@@ -522,20 +441,7 @@ namespace PetShop.UI
                 Console.Clear();
                 Console.WriteLine(StringConstants.HereIsAListOfMatchingPets);
                 Console.WriteLine("");
-                Console.WriteLine($"{"ID:",-5}" + "| " +
-                                  $"{"Name:",-20}"+ "| " +
-                                  $"{"Type:",-10}"+ "| " +
-                                  $"{"Birth Date:",-11}"+ "| " +
-                                  $"{"Sold Date:",-11}"+ "| " +
-                                  $"{"Color:",-10}"+ "| " +
-                                  $"{"Price:",-10}");
-                Console.WriteLine($"{"-----",-5}" + "|-" +
-                                  $"{"--------------------",-20}"+ "|-" +
-                                  $"{"----------",-10}"+ "|-" +
-                                  $"{"-----------",-11}"+ "|-" +
-                                  $"{"-----------",-11}"+ "|-" +
-                                  $"{"----------",-10}"+ "|-" +
-                                  $"{"----------",-10}");
+                PrintBeautifulTable();
                 foreach (var pet in tempPetList)
                 {
                     Console.WriteLine($"{pet.Id,-5}"+ "| " +
@@ -586,21 +492,7 @@ namespace PetShop.UI
             {
                 Console.WriteLine(StringConstants.HereIsAListOfAllPets);
                 Console.WriteLine("");
-                Console.WriteLine($"{"ID:",-5}" + "| " +
-                                  $"{"Name:",-20}"+ "| " +
-                                  $"{"Type:",-10}"+ "| " +
-                                  $"{"Birth Date:",-11}"+ "| " +
-                                  $"{"Sold Date:",-11}"+ "| " +
-                                  $"{"Color:",-10}"+ "| " +
-                                  $"{"Price:",-10}");
-                Console.WriteLine($"{"-----",-5}" + "|-" +
-                                  $"{"--------------------",-20}"+ "|-" +
-                                  $"{"----------",-10}"+ "|-" +
-                                  $"{"-----------",-11}"+ "|-" +
-                                  $"{"-----------",-11}"+ "|-" +
-                                  $"{"----------",-10}"+ "|-" +
-                                  $"{"----------",-10}");
-
+                PrintBeautifulTable();
                 foreach (var pet in pets)
                 {
                     Console.WriteLine($"{pet.Id,-5}"+ "| " +

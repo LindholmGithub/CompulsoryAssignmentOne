@@ -31,6 +31,7 @@ namespace PetShop.UI
         public const string PleaseEnterPetPrice = "Please enter the pet price:";
         public const string PetHasBeenCreatedText = "Pet with the following properties created:";
         public const string ExitingMenuText = "Exiting, thanks for using the menu application";
+        public const string PetInfoHasBeenUpdated = "Pet Info has been Updated";
         public const string PleaseSelectThePetInfoToEdit = "Please select the pet info you want to edit: ";
         public const string PetNameHasBeenChanged = "The Selected Pet Name has been changed";
         public const string PetTypeHasBeenChanged = "The Selected Pet Type has been changed";

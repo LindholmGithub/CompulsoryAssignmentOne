@@ -12,7 +12,7 @@ namespace PetShop.Infrastructure.Data.Repositories
         private static List<Pet> _petTable = new List<Pet>();
         private string deletedPetName;
 
-        private static int _petId = 7;
+        private static int _petId = 1;
 
         private static List<PetType> _petTypeTable = new List<PetType>();
 
@@ -45,7 +45,6 @@ namespace PetShop.Infrastructure.Data.Repositories
             };
             Pet pet1 = new Pet()
             {
-                Id = 1,
                 Name = "John",
                 Type = dog,
                 BirthDate = new DateTime(1979, 07, 28),
@@ -55,7 +54,6 @@ namespace PetShop.Infrastructure.Data.Repositories
             };
             Pet pet2 = new Pet()
             {
-                Id = 2,
                 Name = "Snowball",
                 Type = cat,
                 BirthDate = new DateTime(1979, 07, 28),
@@ -65,7 +63,6 @@ namespace PetShop.Infrastructure.Data.Repositories
             };
             Pet pet3 = new Pet()
             {
-                Id = 3,
                 Name = "Billy",
                 Type = goat,
                 BirthDate = new DateTime(1999, 12, 02),
@@ -75,7 +72,6 @@ namespace PetShop.Infrastructure.Data.Repositories
             };
             Pet pet4 = new Pet()
             {
-                Id = 4,
                 Name = "Solid",
                 Type = snake,
                 BirthDate = new DateTime(2013, 05, 30),
@@ -85,7 +81,6 @@ namespace PetShop.Infrastructure.Data.Repositories
             };
             Pet pet5 = new Pet()
             {
-                Id = 5,
                 Name = "Tweetie",
                 Type = bird,
                 BirthDate = new DateTime(2018, 08, 08),
@@ -95,7 +90,6 @@ namespace PetShop.Infrastructure.Data.Repositories
             };
             Pet pet6 = new Pet()
             {
-                Id = 6,
                 Name = "Garry",
                 Type = goat,
                 BirthDate = new DateTime(2000, 07, 28),
@@ -103,12 +97,12 @@ namespace PetShop.Infrastructure.Data.Repositories
                 Color = "Gold", 
                 Price = 500001d
             };
-            _petTable.Add(pet1);
-            _petTable.Add(pet2);
-            _petTable.Add(pet3);
-            _petTable.Add(pet4);
-            _petTable.Add(pet5);
-            _petTable.Add(pet6);
+            Create(pet1);
+            Create(pet2);
+            Create(pet3);
+            Create(pet4);
+            Create(pet5);
+            Create(pet6);
         }
         public List<Pet> GetAllPets()
         {
@@ -135,51 +129,19 @@ namespace PetShop.Infrastructure.Data.Repositories
             }
             return deletedPetName;
         }
-
-        public void UpdateName(int idToUpdate, string newPetName)
-        {
-            List<Pet> allPets = _petTable;
-            allPets.First(pet => pet.Id == idToUpdate).Name = newPetName;
-        }
-
-        public void UpdatePetType(int idToUpdate, string newPetType)
-        {
-            List<Pet> allPets = _petTable;
-            allPets.First(pet => pet.Id == idToUpdate).Type.Name = newPetType;
-        }
-
-        public void UpdatePetBirthDate(int idToUpdate, DateTime newPetBirthDate)
-        {
-            List<Pet> allPets = _petTable;
-            allPets.First(pet => pet.Id == idToUpdate).BirthDate = newPetBirthDate;
-        }
-
-        public void UpdatePetSoldDate(int idToUpdate, DateTime newPetSoldDate)
-        {
-            List<Pet> allPets = _petTable;
-            allPets.First(pet => pet.Id == idToUpdate).SoldDate = newPetSoldDate;
-        }
-
-        public void UpdatePetColor(int idToUpdate, string newPetColor)
-        {
-            List<Pet> allPets = _petTable;
-            allPets.First(pet => pet.Id == idToUpdate).Color = newPetColor;
-        }
-
-        public void UpdatePetPrice(int idToUpdate, double newPetPrice)
-        {
-            List<Pet> allPets = _petTable;
-            allPets.First(pet => pet.Id == idToUpdate).Price = newPetPrice;
-        }
-
-        public void Update(Pet pet)
+        public Pet Update(Pet pet)
         {
             var petToUpdate = _petTable.FirstOrDefault(p => p.Id == pet.Id);
             if (petToUpdate != null)
             {
                 petToUpdate.Name = pet.Name;
                 petToUpdate.Type = pet.Type;
+                petToUpdate.BirthDate = pet.BirthDate;
+                petToUpdate.SoldDate = pet.SoldDate;
+                petToUpdate.Color = pet.Color;
+                petToUpdate.Price = pet.Price;
             }
+            return petToUpdate;
         }
     }
 }

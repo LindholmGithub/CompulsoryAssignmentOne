@@ -45,39 +45,9 @@ namespace PetShop.Domain.Services
             return _repo.Delete(petId);
         }
 
-        public void UpdatePetName(int idToUpdate, string newPetName)
+        public Pet Update(Pet pet)
         {
-            _repo.UpdateName(idToUpdate, newPetName);
-        }
-
-        public void UpdatePetType(int idToUpdate, string newPetType)
-        {
-            _repo.UpdatePetType(idToUpdate, newPetType);
-        }
-
-        public void UpdatePetBirthDate(int idToUpdate, DateTime newPetBirthDate)
-        {
-            _repo.UpdatePetBirthDate(idToUpdate, newPetBirthDate);
-        }
-
-        public void UpdatePetSoldDate(int idToUpdate, DateTime newPetSoldDate)
-        {
-            _repo.UpdatePetSoldDate(idToUpdate, newPetSoldDate);
-        }
-
-        public void UpdatePetColor(int idToUpdate, string newPetColor)
-        {
-            _repo.UpdatePetColor(idToUpdate, newPetColor);
-        }
-
-        public void UpdatePetPrice(int idToUpdate, double newPetPrice)
-        {
-            _repo.UpdatePetPrice(idToUpdate, newPetPrice);
-        }
-
-        public void Update(Pet pet)
-        {
-            _repo.Update(pet);
+            return _repo.Update(pet);
         }
     }
 }
