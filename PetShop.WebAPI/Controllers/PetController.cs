@@ -21,7 +21,7 @@ namespace PetShop.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Pet>> getAllPets()
+        public ActionResult<List<Pet>> GetAllPets()
         {
             return Ok(_petService.GetAllPets());
         }
