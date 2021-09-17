@@ -34,10 +34,48 @@ namespace PetShop.WebAPI.Controllers
             
         }
 
+        [HttpGet]
+        public ActionResult<List<Insurance>> GetAll()
+        {
+            try
+            {
+                return Ok(_insuranceService.GetAll());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Call 911");
+            }
+        }
+
         [HttpPost]
         public ActionResult<Insurance> Create([FromBody] Insurance insurance)
         {
             return Ok(_insuranceService.Create(insurance));
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Insurance> Delete(int id)
+        {
+            return Ok(_insuranceService.Delete(id));
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Insurance> Update(int id, [FromBody] Insurance insurance)
+        {
+            try
+            {
+                if (id != insurance.Id)
+                {
+                    return BadRequest("Id doesnt match");
+                }
+                return Ok(_insuranceService.Update(insurance));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Call 911");
+            }
+            
+        }
+
     }
 }

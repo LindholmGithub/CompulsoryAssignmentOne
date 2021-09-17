@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using PetShop.Core.Models;
 using PetShop.Domain.IRepositories;
@@ -38,6 +39,71 @@ namespace PetShop.Infrastructure.EntityFramework.Repositories
             }).Entity;
             _context.SaveChanges();
             return new Insurance()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price
+            };
+        }
+
+        public List<Insurance> GetAll()
+        {
+            //Min egen metode
+            
+            //List<Insurance> insurances = new List<Insurance>();
+            //foreach (var entity in _context.Insurances.ToList())
+            //{
+            //    insurances.Add(new Insurance()
+            //    {
+            //        Id = entity.Id,
+            //        Name = entity.Name,
+            //        Price = entity.Price
+            //    });
+            //}
+            //return insurances;
+            
+            //Lars' Metode
+            return _context.Insurances.Select(insurance => new Insurance
+            {
+                Id = insurance.Id,
+                Name = insurance.Name,
+                Price = insurance.Price
+            })
+                .Take(50)
+                .OrderBy(i => i.Name)
+                .ToList();
+        }
+
+        public Insurance Delete(int id)
+        {
+            //Min egen metode
+            
+            //Insurance insurance = GetById(id);
+            //_context.Remove(insurance);
+            //return insurance;
+
+            //Lars' metode
+            var entity = _context.Remove(new InsuranceEntity {Id = id}).Entity;
+            _context.SaveChanges();
+            return new Insurance
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Price = entity.Price
+            };
+        }
+
+        public Insurance Update(Insurance insurance)
+        {
+            var insuranceEntity = new InsuranceEntity
+            {
+                Id = insurance.Id,
+                Name = insurance.Name,
+                Price = insurance.Price
+            };
+            var entity = _context.Update(insuranceEntity).Entity;
+            _context.SaveChanges();
+            return new Insurance
             {
                 Id = entity.Id,
                 Name = entity.Name,
