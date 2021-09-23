@@ -7,7 +7,7 @@ using PetShop.Domain.IRepositories;
 
 namespace PetShop.Infrastructure.Data.Repositories
 {
-    public class PetShopRepository : IPetRepositories, IPetTypeRepositories
+    public class PetShopRepository : IPetRepositories
     {
         private static List<Pet> _petTable = new List<Pet>();
         private string deletedPetName;
@@ -111,7 +111,8 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet ReadById(int id)
         {
-            throw new NotImplementedException();
+            var pet = _petTable.FirstOrDefault(p => p.Id == id);
+            return pet;
         }
 
         public Pet Create(Pet pet)

@@ -15,7 +15,7 @@ namespace PetShop.UI
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddScoped<IPetRepositories, PetShopRepository>();
             serviceCollection.AddScoped<IPetService, PetService>();
-            serviceCollection.AddScoped<IPetTypeRepositories, PetShopRepository>();
+            serviceCollection.AddScoped<IPetTypeRepositories, PetTypeRepository>();
             serviceCollection.AddScoped<IPetTypeService, PetTypeService>();
             serviceCollection.AddScoped<IOwnerRepository, OwnerRepository>();
             serviceCollection.AddScoped<IOwnerService, OwnerService>();

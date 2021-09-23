@@ -65,7 +65,8 @@ namespace PetShop.Infrastructure.EntityFramework.Repositories
                 SoldDate = entity.SoldDate,
                 Color = entity.Color,
                 Price = entity.Price
-            };}
+            };
+        }
 
         public Pet Delete(int petId)
         {

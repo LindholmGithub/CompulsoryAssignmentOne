@@ -18,6 +18,7 @@ using PetShop.Domain.Services;
 using PetShop.Infrastructure.Data.Repositories;
 using PetShop.Infrastructure.EntityFramework;
 using PetShop.Infrastructure.EntityFramework.Repositories;
+using PetTypeRepository = PetShop.Infrastructure.EntityFramework.Repositories.PetTypeRepository;
 
 namespace PetShop.WebAPI
 {
@@ -50,8 +51,10 @@ namespace PetShop.WebAPI
                         .UseSqlite("Data Source=petshop.db");
                 });
             
-            services.AddScoped<IPetRepositories, PetShopRepository>();
+            services.AddScoped<IPetRepositories, PetRepository>();
             services.AddScoped<IPetService, PetService>();
+            services.AddScoped<IPetTypeRepositories, PetTypeRepository>();
+            services.AddScoped<IPetTypeService, PetTypeService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IInsuranceRepository, InsuranceRepository>();
