@@ -9,7 +9,7 @@ namespace PetShop.Core.IServices
         List<Pet> GetAllPets();
         List<Pet> GetPetsByType(string searchedWords);
         Pet Create(Pet pet);
-        string Delete(int petId);
+        Pet Delete(int petId);
         Pet Update(Pet pet);
     }
 }

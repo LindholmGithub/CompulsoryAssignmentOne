@@ -40,7 +40,7 @@ namespace PetShop.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<string> DeletePet(int id)
+        public ActionResult<Pet> DeletePet(int id)
         {
             return _petService.Delete(id);
         }

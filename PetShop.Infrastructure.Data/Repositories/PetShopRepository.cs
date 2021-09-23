@@ -109,6 +109,11 @@ namespace PetShop.Infrastructure.Data.Repositories
             return _petTable;
         }
 
+        public Pet ReadById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Pet Create(Pet pet)
         {
             pet.Id = _petId++;
@@ -116,18 +121,19 @@ namespace PetShop.Infrastructure.Data.Repositories
             return pet;
         }
 
-        public string Delete(int petId)
+        public Pet Delete(int petId)
         {
             _petTable = GetAllPets();
+            Pet petToDelete = new Pet();
             foreach (var pet in _petTable.ToList())
             {
                 if (petId == pet.Id)
                 {
                     _petTable.Remove(pet);
-                    deletedPetName = pet.Name;
+                    petToDelete = pet;
                 }
             }
-            return deletedPetName;
+            return petToDelete;
         }
         public Pet Update(Pet pet)
         {
