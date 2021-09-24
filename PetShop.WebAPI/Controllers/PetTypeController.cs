@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.IServices;
 using PetShop.Core.Models;
+using PetShop.WebAPI.Dtos.Pets;
+using PetShop.WebAPI.Dtos.PetTypes;
 
 namespace PetShop.WebAPI.Controllers
 {
@@ -16,9 +19,14 @@ namespace PetShop.WebAPI.Controllers
             _petTypeService = petTypeService;
         }
         [HttpGet]
-        public ActionResult<List<PetType>> GetAllPetTypes()
+        public ActionResult<List<GetAllPetTypesDto>> GetAllPetTypes()
         {
-            return Ok(_petTypeService.GetAllPetTypes());
+            return Ok(_petTypeService.GetAllPetTypes()
+                .Select(pt => new PetType
+                {
+                    Id = pt.Id,
+                    Name = pt.Name
+                }));
         }
 
         [HttpGet("{id}")]

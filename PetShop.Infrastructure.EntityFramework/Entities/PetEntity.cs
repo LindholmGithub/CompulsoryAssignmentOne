@@ -7,7 +7,7 @@ namespace PetShop.Infrastructure.EntityFramework.Entities
     {
         public int Id { get; set; }
         public string Name{ get; set; }
-        public int PetTypeEntityId { get; set; }
+        public int PetTypeId { get; set; }
         public PetTypeEntity PetType { get; set; }
         public DateTime BirthDate{ get; set; }
         public DateTime SoldDate{ get; set; }

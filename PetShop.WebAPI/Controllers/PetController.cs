@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.IServices;
 using PetShop.Core.Models;
+using PetShop.WebAPI.Dtos.Pets;
 
 namespace PetShop.WebAPI.Controllers
 {
@@ -21,9 +22,20 @@ namespace PetShop.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Pet>> GetAllPets()
+        public ActionResult<List<GetAllPetsDto>> GetAllPets()
         {
-            return Ok(_petService.GetAllPets());
+            return Ok(_petService.GetAllPets()
+                .Select(p => new GetAllPetsDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    PetTypeName = p.Type.Name,
+                    BirthDate = p.BirthDate,
+                    SoldDate = p.SoldDate,
+                    Color = p.Color,
+                    Price = p.Price,
+                    InsuranceName = p.Insurance.Name
+                }));
         }
 
         [HttpGet("{id}")]
@@ -34,9 +46,26 @@ namespace PetShop.WebAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Pet> CreatePet([FromBody]Pet pet)
+        public ActionResult<Pet> CreatePet([FromBody]CreatePetDto dto)
         {
-            return Created($"https://localhost/api/Pet/{pet.Id}",_petService.Create(pet));
+            var petToCreate = new Pet
+            {
+                Name = dto.Name,
+                BirthDate = dto.BirthDate,
+                SoldDate = dto.SoldDate,
+                Color = dto.Color,
+                Price = dto.Price,
+                Type = new PetType
+                {
+                    Id = dto.PetTypeId
+                },
+                Insurance = new Insurance
+                {
+                    Id = dto.InsuranceId
+                }
+            };
+            var petCreated = _petService.Create(petToCreate);
+            return Created($"https://localhost/api/Pet/{petCreated.Id}",petCreated);
         }
 
         [HttpDelete("{id}")]

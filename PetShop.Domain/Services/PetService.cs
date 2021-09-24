@@ -37,6 +37,14 @@ namespace PetShop.Domain.Services
 
         public Pet Create(Pet pet)
         {
+            if (pet.Type == null || pet.Type.Id < 1)
+            {
+                throw new ArgumentException("Woops, PetType must exist and PetType ID must be 1 or above");
+            }
+            if (pet.Insurance == null || pet.Insurance.Id < 1)
+            {
+                throw new ArgumentException("Woops, Insurance must exist and Insurance ID must be 1 or above");
+            }
             return _repo.Create(pet);
         }
 
@@ -47,6 +55,15 @@ namespace PetShop.Domain.Services
 
         public Pet Update(Pet pet)
         {
+            if (pet.Type == null || pet.Type.Id < 1)
+            {
+                throw new ArgumentException("Woops, PetType must exist and PetType ID must be 1 or above");
+            }
+
+            if (pet.Insurance == null || pet.Insurance.Id < 1)
+            {
+                throw new ArgumentException("Woops, Insurance must exist and Insurance ID must be 1 or above");
+            }
             return _repo.Update(pet);
         }
     }
