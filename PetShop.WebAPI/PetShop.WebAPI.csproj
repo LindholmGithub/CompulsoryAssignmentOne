@@ -15,6 +15,11 @@
       <ProjectReference Include="..\PetShop.Domain\PetShop.Domain.csproj" />
       <ProjectReference Include="..\PetShop.Infrastructure.Data\PetShop.Infrastructure.Data.csproj" />
       <ProjectReference Include="..\PetShop.Infrastructure.EntityFramework\PetShop.Infrastructure.EntityFramework.csproj" />
+      <ProjectReference Include="..\PetShop.Infrastructure.Security\PetShop.Infrastructure.Security.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Dtos\Security\User" />
     </ItemGroup>
 
 </Project>
