@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using PetShop.Core.Filter;
 using PetShop.Core.IServices;
 using PetShop.Core.Models;
 using PetShop.Domain.IRepositories;
@@ -16,15 +17,28 @@ namespace PetShop.Domain.Services
             _repo = repo;
         }
 
-        public List<Pet> GetAllPets()
+        public List<Pet> GetAllPets(Filter filter)
         {
-            return _repo.GetAllPets();
+            if (filter == null || filter.Limit <= 0 || filter.Limit > 100)
+            {
+                throw new ArgumentException("Filter Limit must be between 1 and 100");
+            }
+
+            var totalCount = TotalCount();
+            var maxPageCount = Math.Ceiling((double)totalCount / filter.Limit);
+            if (filter.Page < 1 || filter.Page > maxPageCount)
+            {
+                throw new ArgumentException($"Filter Page must be between 1 and {maxPageCount}");
+            }
+            return _repo.GetAllPets(filter);
         }
+
 
         public List<Pet> GetPetsByType(string searchedWords)
         {
             List<Pet> searchedPets = new List<Pet>();
-            PetList = GetAllPets();
+            var filter = new Filter();
+            PetList = GetAllPets(filter);
             foreach (var pet in PetList)
             {
                 if (String.Equals(pet.Type.Name, searchedWords, StringComparison.CurrentCultureIgnoreCase))
@@ -65,6 +79,11 @@ namespace PetShop.Domain.Services
                 throw new ArgumentException("Woops, Insurance must exist and Insurance ID must be 1 or above");
             }
             return _repo.Update(pet);
+        }
+
+        public int TotalCount()
+        {
+            return _repo.TotalCount();
         }
     }
 }

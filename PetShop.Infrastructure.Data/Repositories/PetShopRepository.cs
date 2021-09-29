@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using PetShop.Core.Filter;
 using PetShop.Core.Models;
 using PetShop.Domain.IRepositories;
 
@@ -104,7 +105,7 @@ namespace PetShop.Infrastructure.Data.Repositories
             Create(pet5);
             Create(pet6);
         }
-        public List<Pet> GetAllPets()
+        public List<Pet> GetAllPets(Filter filter)
         {
             return _petTable;
         }
@@ -124,7 +125,8 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet Delete(int petId)
         {
-            _petTable = GetAllPets();
+            var filter = new Filter();
+            _petTable = GetAllPets(filter);
             Pet petToDelete = new Pet();
             foreach (var pet in _petTable.ToList())
             {
@@ -149,6 +151,11 @@ namespace PetShop.Infrastructure.Data.Repositories
                 petToUpdate.Price = pet.Price;
             }
             return petToUpdate;
+        }
+
+        public int TotalCount()
+        {
+            throw new NotImplementedException();
         }
     }
 }

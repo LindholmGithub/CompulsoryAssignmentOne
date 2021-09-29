@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PetShop.Core.Filter;
 using PetShop.Core.IServices;
 using PetShop.Core.Models;
 using PetShop.WebAPI.Dtos.Pets;
@@ -22,20 +23,32 @@ namespace PetShop.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<GetAllPetsDto>> GetAllPets()
+        public ActionResult<List<GetAllPetsDto>> GetAllPets([FromQuery] Filter filter)
         {
-            return Ok(_petService.GetAllPets()
-                .Select(p => new GetAllPetsDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    PetTypeName = p.Type.Name,
-                    BirthDate = p.BirthDate,
-                    SoldDate = p.SoldDate,
-                    Color = p.Color,
-                    Price = p.Price,
-                    InsuranceName = p.Insurance.Name
-                }));
+            try
+            {
+                return Ok(_petService.GetAllPets(filter)
+                    .Select(p => new GetAllPetsDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        PetTypeName = p.Type.Name,
+                        BirthDate = p.BirthDate,
+                        SoldDate = p.SoldDate,
+                        Color = p.Color,
+                        Price = p.Price,
+                        InsuranceName = p.Insurance.Name
+                    }));
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
 
         [HttpGet("{id}")]

@@ -27,44 +27,5 @@ namespace PetShop.WebAPI.Controllers.Security
             _roleRepo = roleRepo;
             _authentication = authentication;
         }
-
-        [HttpPost]
-        public IActionResult Post([FromBody] RegisterUserModel model)
-        {
-            var user = _userRepo.GetAll().FirstOrDefault(u => u.Username == model.Username);
-
-            //Does already contain a user with the given username?
-            if (user != null)
-                return Unauthorized();
-
-            byte[] salt;
-            byte[] passwordHash;
-            _authentication.CreatePasswordHash(model.Password, out passwordHash, out salt);
-
-            //TODO Fix this by adding a RoleRepository and fetching the Role from there.. Putting in a relationship.
-            List<Role> roles = new List<Role>();
-            
-            //I add the User role as a default for any new user:
-            roles.Add(_roleRepo.GetAll().FirstOrDefault(r => r.Name.Equals(RoleTypes.User.ToString())));
-
-            user = new User()
-            {
-                Username = model.Username,
-                Roles = roles,
-                PasswordHash = passwordHash,
-                PasswordSalt = salt
-            };
-
-            _userRepo.Add(user);
-            //I get a fresh object from the db (With an ID):
-            user = _userRepo.GetAll().FirstOrDefault(u => u.Username == model.Username);
-
-            //Authentication succesful
-            return Ok(new
-            {
-                username = user.Username,
-                token = _authentication.GenerateToken(user)
-            });
-        }
     }
 }
