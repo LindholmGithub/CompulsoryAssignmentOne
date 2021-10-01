@@ -17,7 +17,7 @@ namespace PetShop.Domain.Services
             _repo = repo;
         }
 
-        public List<Pet> GetAllPets(Filter filter)
+        public FilteredList<Pet> GetAllPets(Filter filter)
         {
             if (filter == null || filter.Limit <= 0 || filter.Limit > 100)
             {
@@ -30,13 +30,18 @@ namespace PetShop.Domain.Services
             {
                 throw new ArgumentException($"Filter Page must be between 1 and {maxPageCount}");
             }
-            return _repo.GetAllPets(filter);
+            var listOfAllPets = _repo.GetAllPets(filter);
+            return new FilteredList<Pet>()
+            {
+                List = listOfAllPets,
+                TotalCount = totalCount
+            };
         }
 
 
         public List<Pet> GetPetsByType(string searchedWords)
         {
-            List<Pet> searchedPets = new List<Pet>();
+            /*List<Pet> searchedPets = new List<Pet>();
             var filter = new Filter();
             PetList = GetAllPets(filter);
             foreach (var pet in PetList)
@@ -47,6 +52,8 @@ namespace PetShop.Domain.Services
                 }
             }
             return searchedPets;
+            */
+            throw new NotImplementedException();
         }
 
         public Pet Create(Pet pet)

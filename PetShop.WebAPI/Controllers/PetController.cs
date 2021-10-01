@@ -28,6 +28,7 @@ namespace PetShop.WebAPI.Controllers
             try
             {
                 return Ok(_petService.GetAllPets(filter)
+                    .List
                     .Select(p => new GetAllPetsDto
                     {
                         Id = p.Id,
