@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.WebAPI", "PetShop.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Infrastructure.EntityFramework", "PetShop.Infrastructure.EntityFramework\PetShop.Infrastructure.EntityFramework.csproj", "{48D8C092-D59A-45B3-9CE1-D12D95C0BBB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Infrastructure.Security", "PetShop.Infrastructure.Security\PetShop.Infrastructure.Security.csproj", "{5DEBBFFF-E537-4368-B46D-DE55F6F5B92D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySecurity", "MySecurity\MySecurity.csproj", "{94334421-5717-4BAA-9F34-52C0F2E57244}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +44,10 @@ Global
 		{48D8C092-D59A-45B3-9CE1-D12D95C0BBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48D8C092-D59A-45B3-9CE1-D12D95C0BBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48D8C092-D59A-45B3-9CE1-D12D95C0BBB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DEBBFFF-E537-4368-B46D-DE55F6F5B92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DEBBFFF-E537-4368-B46D-DE55F6F5B92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DEBBFFF-E537-4368-B46D-DE55F6F5B92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DEBBFFF-E537-4368-B46D-DE55F6F5B92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94334421-5717-4BAA-9F34-52C0F2E57244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94334421-5717-4BAA-9F34-52C0F2E57244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94334421-5717-4BAA-9F34-52C0F2E57244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94334421-5717-4BAA-9F34-52C0F2E57244}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CD712B7D-21A2-4DFC-BAAD-C117CA231806} = {E2C1BE88-8C64-4924-9755-F7F68BA2145E}
@@ -55,6 +55,5 @@ Global
 		{00ED6454-7178-4660-8D20-851F513626FF} = {5DAF9214-E952-44AD-90F8-0CC01B4B3509}
 		{1A2010E7-604F-453A-8685-61F2CFEC77ED} = {3497D757-01ED-4660-B795-E1F1B8A00CA6}
 		{48D8C092-D59A-45B3-9CE1-D12D95C0BBB2} = {5DAF9214-E952-44AD-90F8-0CC01B4B3509}
-		{5DEBBFFF-E537-4368-B46D-DE55F6F5B92D} = {5DAF9214-E952-44AD-90F8-0CC01B4B3509}
 	EndGlobalSection
 EndGlobal

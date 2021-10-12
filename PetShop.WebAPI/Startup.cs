@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,7 @@ using PetShop.Domain.Services;
 using PetShop.Infrastructure.Data.Repositories;
 using PetShop.Infrastructure.EntityFramework;
 using PetShop.Infrastructure.EntityFramework.Repositories;
+using PetShop.Infrastructure.Security.Helpers;
 using PetTypeRepository = PetShop.Infrastructure.EntityFramework.Repositories.PetTypeRepository;
 
 namespace PetShop.WebAPI
@@ -50,6 +52,13 @@ namespace PetShop.WebAPI
                         .UseLoggerFactory(loggerFactory)
                         .UseSqlite("Data Source=petshop.db");
                 });
+            services.AddDbContext<SecurityContext>(
+                opt =>
+                {
+                    opt
+                        .UseLoggerFactory(loggerFactory)
+                        .UseSqlite("Data Source=users.db");
+                });
             
             services.AddScoped<IPetRepositories, PetRepository>();
             services.AddScoped<IPetService, PetService>();
@@ -59,6 +68,7 @@ namespace PetShop.WebAPI
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IInsuranceRepository, InsuranceRepository>();
             services.AddScoped<IInsuranceService, InsuranceService>();
+            services.AddSingleton<IAuthenticationHelper, AuthenticationHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,9 +81,10 @@ namespace PetShop.WebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PetShop.WebAPI v1"));
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetService<PetShopDBContext>();
-                    context.Database.EnsureDeleted();
-                    context.Database.EnsureCreated();
+                    var petShopContext = scope.ServiceProvider.GetService<PetShopDBContext>();
+                    var securityContext = scope.ServiceProvider.GetService<SecurityContext>();
+                    petShopContext.Database.EnsureDeleted();
+                    securityContext.Database.EnsureCreated();
                 }
             }
 
